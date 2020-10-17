@@ -1,0 +1,122 @@
+package com.company;
+
+public class MyList {
+	class Item {
+		private int value;
+		private Item next;
+
+		public Item(int value) {
+			this.value = value;
+			this.next = null;
+
+		}
+
+		public boolean hasNext() {
+			if (this.next != null) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		public String toString() {
+			return Long.toString(this.value);
+		}
+
+		public int getValue() {
+			return value;
+		}
+
+		public void setValue(int value) {
+			this.value = value;
+		}
+
+		public Item getNext() {
+			return next;
+		}
+
+		public void setNext(Item next) {
+			this.next = next;
+		}
+	}
+
+	private Item begin;
+	private long counter;
+
+	public MyList() {
+		this.begin = null;
+		this.counter = 0;
+	}
+
+	public long getCounter() {
+		return counter;
+	}
+
+	public void add(int value) {
+		Item item = new Item(value);
+		if (this.begin == null) {
+			this.begin = item;
+		} else {
+			end().setNext(item);
+		}
+		this.counter++;
+	}
+
+	public Item end() {
+		if (this.begin == null)
+			return null;
+		Item iter = this.begin;
+		while (iter.hasNext()) {
+			iter = iter.getNext();
+		}
+		return iter;
+	}
+
+	public String toString() {
+		String result = "[ ";
+		if (this.begin == null) {
+			return null;
+		} else {
+			Item iter = this.begin;
+			while (iter.hasNext()) {
+				result += iter.toString() + ", ";
+				iter = iter.getNext();
+			}
+			result += iter.toString();
+		}
+		result += " ]";
+		return result;
+	}
+	public void Swap(int firstPos, int secondPos){
+
+		if (firstPos > secondPos) {
+			int tmp = firstPos;
+			firstPos = secondPos;
+			secondPos = tmp;
+		}
+		if (firstPos >= 0) {
+			Item<T> Postone = indexAt(firstPos - 1);
+			Item<T> Postoneznach = indexAt(firstPos);
+			Item<T> Postoneposle = indexAt(firstPos + 1);
+			Item<T> Posttwo = indexAt(secondPos - 1);
+			Item<T> Posttwoznach = indexAt(secondPos);
+			Item<T> Posttwoposle = indexAt(secondPos + 1);
+
+			if (Postone != null) {
+				Postone.setNext(Posttwoznach);
+			}
+			else {
+				this.root = Postoneznach;
+			}
+
+			Postoneposle.setNext(Posttwoposle);
+
+			if (Posttwo == Postoneznach) {
+				Posttwoznach.setNext(Postoneznach);
+			}
+			else {
+				Posttwoznach.setNext(Postoneposle);
+				Posttwo.setNext(Postoneznach);
+			}
+		}
+	}
